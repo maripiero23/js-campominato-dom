@@ -10,6 +10,7 @@ altrimenti il gioco va avanti
 
 const btnGriglia = document.getElementById("btn-griglia");
 const selectLevel = document.querySelector("[name='select-level']")
+let bombe;
 
 
 btnGriglia.addEventListener("click", function(){
@@ -20,7 +21,10 @@ btnGriglia.addEventListener("click", function(){
 
     // console.log(+level);
 
-    createBombs(+level)
+
+    //salvo dentro la variabile globale "bombe" l'array creato
+    //dalla funzione "createBombs"
+    bombe = createBombs(+level)
 
  
 
@@ -64,22 +68,35 @@ function generaGriglia(numCelle){
         nuovaCella.classList.add("new-cell");
         nuovaCella.style.flexBasis = 100 / rowsNum + "%";
 
-        nuovaCella.innerHTML = i;
+        // nuovaCella.innerHTML = i;
+
+        //per capire il numero associato alla cella cliccata creo un attributo
+        //personalizzato all'elem html
+        nuovaCella.dataset.nuovaCella = i +1;
+
 
         //ora ad ogni cella appena creata vado ad aggiungere un evento sul click
-
-        nuovaCella.addEventListener("click",function(){
+        nuovaCella.addEventListener("click", onCellClick)
             //ora voglio cambiare il colore della cella quando clicco sopra la cella
-            this.classList.toggle("bg-primary");
+            // this.classList.toggle("bg-primary");
 
-            console.log("la cella cliccata è la numero", i);
-        })
+            // console.log("la cella cliccata è la numero", i);
+        
 
         gridContainer.append(nuovaCella);
 
+    }
+}
 
+function onCellClick(){
+    //1 devo capire il numero associato alla cella cliccata 
+    //per farlo vado a prendere l'attributo che avevo dato all'elem html
+    const numCella = +this.nuovaCella.dataset.nuovaCella;
 
-
+    //2 conrollo se il numero è presente nella "listaBombe",
+    //se è presente ho beccato una bomba (condizione)
+    if(listaBombe.includes(numCella)){
+        alert("sfigato hai beccato una bomba");
     }
 }
 
@@ -97,6 +114,9 @@ function generaGriglia(numCelle){
 
   /**
    * creo una funzione mi generi un array di 16 bombe
+   * @param {number} numCelle
+   * @return {array}
+   * 
    */
   function createBombs(numCelle){
     const listaBombe = [];
@@ -116,6 +136,7 @@ function generaGriglia(numCelle){
 
     }
         console.log(listaBombe);
+        return listaBombe
 
   }
 
