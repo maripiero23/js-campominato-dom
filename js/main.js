@@ -1,3 +1,13 @@
+/*
+Devo creare 16 bombe. 
+Quando l'utente clicca su una cella, devo controllare se quella cella contiene una bomba
+Se si, il gioco finisce e l'utente perde,
+altrimenti il gioco va avanti
+*/
+
+
+
+
 const btnGriglia = document.getElementById("btn-griglia");
 const selectLevel = document.querySelector("[name='select-level']")
 
@@ -8,14 +18,11 @@ btnGriglia.addEventListener("click", function(){
 
     const level = selectLevel.value;
 
-    console.log(+level);
+    // console.log(+level);
+
+    createBombs(+level)
 
  
-
-
-
-
-
 
     //uso il valore dell'input come argomento della funzione
     generaGriglia(+level);
@@ -36,16 +43,13 @@ function generaGriglia(numCelle){
 
     const gridContainer = document.querySelector(".grid-container");
 
-    //resetto il contenuto della griglia prima di aggiungere quello nuovo
+    // svuoto il contenuto del gridContainer per evitare che le celle vecchie rimangano
     gridContainer.innerHTML = "";
-
-    // const sommaCelle = numCelle * numCelle; /*con questo num creo un ciclo for*/
 
 
 
     //creo ora l'html attraverso un ciclo nel contenitore
-
-    for(let i = 1; i<numCelle; i++){
+    for(let i = 1; i<=numCelle; i++){
 
         //non uso l'inneHTML ma il create element
         //creo un elemento html di tipo div:
@@ -80,7 +84,40 @@ function generaGriglia(numCelle){
 }
 
 
+/**
+ * Generiamo un numero random compreso tra 2 estremi
+ * @param {number} min numero minimo
+ * @param {number} max numero massimo
+ */
+ function createNumberRandom ( min, max ) {
+    return Math.floor( Math.random() * ( max - min + 1 ) ) + min;
+  }
 
+
+
+  /**
+   * creo una funzione mi generi un array di 16 bombe
+   */
+  function createBombs(numCelle){
+    const listaBombe = [];
+
+    while( listaBombe.length < 16 ){ // = fin quando l'array listaBombe non raggiunge una lunghezza di 16
+        //creo un numero random
+        const num = createNumberRandom( 1, numCelle)
+
+
+        //devo far si che i numeri presenti nell'array siano unici
+        //faccio un controllo se il numero appena creato non sia già presente nell'array listaBombe, perchè se è gia presente non va pushato
+        //Se NON è gia presente lo pusho
+        if(!listaBombe.includes(num))
+
+        //aggiungo questo numero random appena creato alla listaBombe
+        listaBombe.push(num)
+
+    }
+        console.log(listaBombe);
+
+  }
 
 
 
