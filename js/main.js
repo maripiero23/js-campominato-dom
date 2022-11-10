@@ -53,7 +53,7 @@ function generaGriglia(numCelle){
 
 
     //creo ora l'html attraverso un ciclo nel contenitore
-    for(let i = 1; i<=numCelle; i++){
+    for(let i = 0; i<numCelle; i++){
 
         //non uso l'inneHTML ma il create element
         //creo un elemento html di tipo div:
@@ -89,15 +89,24 @@ function generaGriglia(numCelle){
 }
 
 function onCellClick(){
+
     //1 devo capire il numero associato alla cella cliccata 
     //per farlo vado a prendere l'attributo che avevo dato all'elem html
-    const numCella = +this.nuovaCella.dataset.nuovaCella;
+    const numCella = +this.dataset.nuovaCella;  
 
     //2 conrollo se il numero è presente nella "listaBombe",
     //se è presente ho beccato una bomba (condizione)
-    if(listaBombe.includes(numCella)){
+    if( bombe.includes( numCella )){
         alert("sfigato hai beccato una bomba");
+
+        this.classList.add( "active", "bg-danger" );
+
+    }else{
+
+        this.classList.toggle( "active" );
     }
+
+
 }
 
 
