@@ -7,7 +7,6 @@ altrimenti il gioco va avanti
 
 
 
-
 const btnGriglia = document.getElementById("btn-griglia");
 const selectLevel = document.querySelector("[name='select-level']")
 let bombe;
